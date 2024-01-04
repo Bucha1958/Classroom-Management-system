@@ -24,6 +24,8 @@ const sendLoginLink = async (req, res) => {
     user.authToken = authToken;
     await user.save();
 
+    const baseURL = `${req.protocol}://${req.get('host')}`;
+
     // Send an email with the login link
     const transporter = nodemailer.createTransport(emailConfig);
 
@@ -31,7 +33,7 @@ const sendLoginLink = async (req, res) => {
       from: emailConfig.auth.user,
       to: email,
       subject: 'Login to Your App',
-      text: `Click the following link to log in: http://your-app.com/login/${authToken}`,
+      text: `Click the following link to log in: ${baseURL}/login/${authToken}`,
     };
 
     await transporter.sendMail(mailOptions);
