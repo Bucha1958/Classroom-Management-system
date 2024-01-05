@@ -3,12 +3,15 @@
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
+require('dotenv').config();
 
 const emailConfig = {
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
-    user: 'okoriemmadu@gmail.com',
-    pass: 'St@nOk0rie_22',
+    user: process.env.EMAIL_HANDLE,
+    pass: process.env.EMAIL_PASS,
   },
 };
 
@@ -39,7 +42,7 @@ const sendLoginLink = async (req, res) => {
 
     const mailOptions = {
       from: emailConfig.auth.user,
-      to: email,
+      to: process.env.EMAIL_HANDLE1,
       subject: 'Login to Your App',
       text: `Click the following link to log in: ${baseURL}/login/${authToken}`,
     };
