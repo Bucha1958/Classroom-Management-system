@@ -4,6 +4,14 @@ const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
 
+const emailConfig = {
+  service: 'gmail',
+  auth: {
+    user: 'okoriemmadu@gmail.com',
+    pass: 'St@nOk0rie_22',
+  },
+};
+
 const sendLoginLink = async (req, res) => {
   try {
     const { email } = req.body;
