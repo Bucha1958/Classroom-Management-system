@@ -13,7 +13,11 @@ const emailConfig = {
     user: process.env.EMAIL_HANDLE,
     pass: process.env.EMAIL_PASS,
   },
+  
 };
+
+
+
 
 const sendLoginLink = async (req, res) => {
   try {
@@ -37,17 +41,19 @@ const sendLoginLink = async (req, res) => {
 
     const baseURL = `${req.protocol}://${req.get('host')}`;
 
+
     // Send an email with the login link
     const transporter = nodemailer.createTransport(emailConfig);
 
     const mailOptions = {
       from: emailConfig.auth.user,
-      to: process.env.EMAIL_HANDLE1,
+      to:  "staneziechina@gmail.com",
       subject: 'Login to Your App',
       text: `Click the following link to log in: ${baseURL}/login/${authToken}`,
     };
 
     await transporter.sendMail(mailOptions);
+
 
     res.status(200).json({ message: 'Login link sent successfully' });
   } catch (error) {
@@ -59,3 +65,5 @@ const sendLoginLink = async (req, res) => {
 module.exports = {
   sendLoginLink,
 };
+
+

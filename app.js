@@ -8,7 +8,7 @@ const app = express();
 // Set up middleware
 app.use(express.json()); 
 // Use authentication routes
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 // Database connection
 connectToDatabase()
