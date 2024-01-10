@@ -4,10 +4,23 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   // Your existing fields
-  email: { type: String, required: true, unique: true },
-
-  // Passwordless authentication token
-  authToken: { type: String, default: null },
+  googleId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  displayName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  }
+},
+{
+  timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);

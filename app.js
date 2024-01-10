@@ -1,28 +1,58 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const passport = require('passport');
+const session = require('express-session');
 const { connectToDatabase } = require('./src/config/database');
-
 const authRoutes = require('./src/routes/authRoutes');
+
+
+require('./auth');
+
 const app = express();
 
 app.use(cors());
-// Set up middleware
-app.use(express.json()); 
-// Use authentication routes
-app.use('/auth', authRoutes);
+app.use(express.json());
 
-
-// Database connection
-connectToDatabase()
+connectToDatabase();
 
 app.get("/", (req, res) => {
-    res.json("ok")
-})
+    const html = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Welcome to Your App</title>
+        </head>
+        <body>
+            <h1>Welcome to Stanley's Google classroom api</h1>
+            <p>Click the link below to log in with Google:</p>
+            <a href="/auth/google">Login with Google</a>
+        </body>
+        </html>
+    `;
 
+    res.send(html);
+});
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Use the authRoutes for authentication-related routes
+app.use('/auth', authRoutes);
+
+app.get('/auth/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-

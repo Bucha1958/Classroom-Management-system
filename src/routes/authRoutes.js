@@ -1,13 +1,12 @@
-
+// authRoutes.js
 const express = require('express');
-const authController = require('../controllers/authController');
-const registerController = require('../controllers/registerController');
-
 const router = express.Router();
+const authController = require('../controllers/authController');
+const middleware = require('../../middleware');
 
-// Route for sending a login link
-router.post('/send-login-link', authController.sendLoginLink);
-router.post('/register', registerController.register);
-
+router.get('/google', authController.login);
+router.get('/google/callback', authController.callback);
+router.get('/google/failure', authController.failure);
+router.get('/success', middleware, authController.success);
 
 module.exports = router;
