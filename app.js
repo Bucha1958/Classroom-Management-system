@@ -4,6 +4,7 @@ const passport = require('passport');
 const session = require('express-session');
 const { connectToDatabase } = require('./src/config/database');
 const authRoutes = require('./src/routes/authRoutes');
+const classRoutes = require('./src/routes/classRoutes');
 
 
 require('./auth');
@@ -37,7 +38,7 @@ app.get("/", (req, res) => {
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false }
 }));
 
@@ -46,6 +47,8 @@ app.use(passport.session());
 
 // Use the authRoutes for authentication-related routes
 app.use('/auth', authRoutes);
+// use the classRoutes for CRUD operations 
+app.use('/create', classRoutes);
 
 app.get('/auth/logout', (req, res) => {
     req.session.destroy();

@@ -1,6 +1,5 @@
 // authController.js
 const passport = require('passport');
-//const middleware = require('../../middleware');
 
 
 exports.login = passport.authenticate('google', { scope: ['email', 'profile'] });
@@ -18,6 +17,3 @@ exports.success = (req, res) => {
     let name = req.user.displayName;
     res.send(`Welcome ${name}`);
 };
-
-
-//exports.success = middleware;

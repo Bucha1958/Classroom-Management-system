@@ -5,6 +5,8 @@ require('dotenv').config();
 
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
+let globalAccessToken;
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -12,6 +14,8 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
   },
   function(request, accessToken, refreshToken, profile, done) {
+    request.session.accessToken = accessToken;
+    console.log(request.session);
     // Find the user by googleId
     User.findOne({ googleId: profile.id })
       .then(user => {
@@ -61,3 +65,4 @@ passport.deserializeUser((id, done) => {
         });
 });
 
+module.exports = passport;
