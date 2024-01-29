@@ -10,8 +10,8 @@ exports.createClass = async (req, res) => {
 
     if (!req.user) {
       return res.status(401).json({ error: 'Unauthorized: User not authenticated' });
-    } 
-    const admin = req.user.email;
+    }
+    const admin = req.user.sub;
     
     // Create a new class instance
     const newClass = new Class({

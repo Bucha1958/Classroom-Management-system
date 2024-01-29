@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const classSchema = new mongoose.Schema({
   // Basic details
@@ -17,10 +18,14 @@ const classSchema = new mongoose.Schema({
   },
   members: [
     {
-      type: String,
+    type: String,
     },
   ],
-
+  inviteCode: {
+    type: String,
+    default: uuidv4,
+    unique: true,
+  },
   // Schedule and timings
   schedule: {
     days: [

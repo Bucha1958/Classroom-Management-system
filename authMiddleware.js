@@ -16,6 +16,7 @@ const authMiddleware = async (req, res, next) => {
             },
         });
         req.user = response.data;
+        console.log(req.user);
         next();
     } catch (error) {
         console.error('Error during authentication:', error);

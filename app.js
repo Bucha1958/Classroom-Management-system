@@ -5,6 +5,7 @@ const session = require('express-session');
 const { connectToDatabase } = require('./src/config/database');
 const authRoutes = require('./src/routes/authRoutes');
 const classRoutes = require('./src/routes/classRoutes');
+const enrollRoutes = require('./src/routes/enrollRoutes');
 
 
 require('./auth');
@@ -49,6 +50,7 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 // use the classRoutes for CRUD operations 
 app.use('/create', classRoutes);
+app.use('/create', enrollRoutes);
 
 app.get('/auth/logout', (req, res) => {
     req.session.destroy();
