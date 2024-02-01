@@ -101,13 +101,17 @@ exports.deleteClass = async (req, res) => {
   try {
     const { classId } = req.params;
 
-    // Delete the class from the database
-    const deletedClass = await Class.findByIdAndDelete(classId);
+    const classFound = await Class.findById(classId);
 
+    if (req.user.sub.toString() !== classFound.admin.toString()) {
+      return res.status(403).json({ error: 'Permission denied' })
+    }
     // Check if the class was found and deleted
-    if (!deletedClass) {
+    if (!classFound) {
       return res.status(404).json({ error: 'Class not found' });
     }
+    // Delete the class from the database
+    const deletedClass = await Class.findByIdAndDelete(classId);
 
     // Send a success message in the response
     res.json({ message: 'Class deleted successfully' });

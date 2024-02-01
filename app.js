@@ -6,6 +6,7 @@ const { connectToDatabase } = require('./src/config/database');
 const authRoutes = require('./src/routes/authRoutes');
 const classRoutes = require('./src/routes/classRoutes');
 const enrollRoutes = require('./src/routes/enrollRoutes');
+const assignmentRoutes = require('./src/controllers/assignmentController');
 
 
 require('./auth');
@@ -51,6 +52,7 @@ app.use('/auth', authRoutes);
 // use the classRoutes for CRUD operations 
 app.use('/create', classRoutes);
 app.use('/create', enrollRoutes);
+app.use('/create',assignmentRoutes);
 
 app.get('/auth/logout', (req, res) => {
     req.session.destroy();

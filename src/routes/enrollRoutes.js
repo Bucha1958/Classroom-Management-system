@@ -10,5 +10,6 @@ const authMiddleware = require('../../authMiddleware');
 
 router.post('/classes/:classId/enroll', authMiddleware, enrollController.enrollStudent)
 router.put('/classes/:classId/enroll', authMiddleware, enrollController.updateEnrollmentLink);
+router.delete('/classes/:classId/enroll', authMiddleware, enrollController.deleteStudent);
 
 module.exports = router;
