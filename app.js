@@ -6,7 +6,7 @@ const { connectToDatabase } = require('./src/config/database');
 const authRoutes = require('./src/routes/authRoutes');
 const classRoutes = require('./src/routes/classRoutes');
 const enrollRoutes = require('./src/routes/enrollRoutes');
-const assignmentRoutes = require('./src/controllers/assignmentController');
+const assignmentRoutes = require('./src/routes/assignmentRoutes');
 
 
 require('./auth');
