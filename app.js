@@ -25,15 +25,15 @@ app.get("/", (req, res) => {
         <head>
             <meta charset="utf-8">
             <title>Welcome to Your App</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body>
-            <h1>Welcome to Stanley's Google classroom api</h1>
+            <h1>Welcome to Stanley's Classroom api</h1>
             <p>Click the link below to log in with Google:</p>
             <a href="/auth/google">Login with Google</a>
         </body>
         </html>
     `;
-
     res.send(html);
 });
 
