@@ -18,6 +18,12 @@ const corsOptions = {
     credentials: true,
   };
 app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+});
+
 app.use(express.json());
 
 connectToDatabase();
@@ -45,7 +51,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
+    cookie: { secure: false, httpOnly: true, maxAge: 86400000 }
 }));
 
 app.use(passport.initialize());
