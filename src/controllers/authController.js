@@ -14,6 +14,5 @@ exports.failure = (req, res) => {
 };
 
 exports.success = (req, res) => {
-    let name = req.user.displayName;
-    res.send(`Welcome ${name}`);
+    res.status(200).json({ user: req.user })
 };
